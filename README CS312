@@ -1,2 +1,42 @@
 README CS312
-uaskjasnckjb
+
+
+Plan: 
+
+
+Fractals 
+	- complex math - adding and squaring (data defs)
+	- fractal functions
+		function that outputs number of iterations given point on complex plane
+		function that computes the point colour value
+
+		position
+		scale/magnitude
+		z/c (local)
+		max number of iterations
+
+Visuals
+	- start with bw and see if we can do colours
+	- simple canvas
+	- check textbook - ascii image
+
+
+Specifications
+- input
+- static image
+	specify area of fractal
+
+output rgb value or binary depending on if we're using colours
+
+
+
+Possible 
+	- use specific chars instead of colours / visuals
+
+
+
+
+
+DONE
+
+overarchings: link files (import)
