@@ -1,0 +1,3 @@
+side n v0 v1 =
+ let sv = (v1 - v0) / fromIntegral n
+ in  [v0, (v0 + sv) .. v1]
