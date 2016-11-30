@@ -24,6 +24,8 @@ output rgb value or binary depending on if we're using colours
 Possible 
 	- use specific chars instead of colours / visuals
 
+Mandelbrot coord -> colour -> byteString -> BMP
+
 
 
 
