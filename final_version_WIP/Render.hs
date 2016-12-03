@@ -38,6 +38,44 @@ project (px, py) (w, h) (cx, cy) magnification
 -- try: 
 -- renderMandelbrot (250, 250) (0, 0) 0.3 "mandelbrot1.bmp"
 -- renderMandelbrot (250, 250) (0.001643721971153, -0.822467633298876) 100 "mandelbrot2.bmp"
+
+{- TRYING TO make modular, but not helping a lot... 
+
+TODO COULD POTENTIALLY USE MAYBE OR EITHER
+
+renderSetUp_Basic:: (Int, Int) -> [Char] -> ByteString
+renderSetUp_Basic (w,h) (x, y) mag = 
+ colorsToByteString [renderPoint x1 y1 (w, h)| y1 <- [0..h-1], x1 <- [0..w-1]] 
+
+-- renderSetUp_Alpha (w,h
+
+renderPoint :: Int -> Int -> (Int, Int) -> (Double, Double) -> Double -> Color
+renderPoint x2 y2 (w, h) (x, y) mag = color (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag))
+
+renderAPoint :: Int -> Int -> (Int, Int) -> (Double, Double) -> Double -> AlphaTriple -> Color
+renderAPoint x2 y2 (w, h) (x, y) mag aT = funColor (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag)) aT
+
+renderFAPoint :: Int -> Int -> (Int, Int) -> (Double, Double) -> Double -> FunctionTriple -> AlphaTriple -> Color
+renderFAPoint x2 y2 (w, h) (x, y) mag fT aT = colorFunc (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag)) fT aT
+
+-}
+
+
+-- this is it, guys
+-- saves you a fractal
+-- Three different versions; 
+--  renderMandelBrot genenrates a simple black and white fractal
+--  cRenderMandelBrot generates a colored fractal, using a pre-defined color function
+--  fcRenderMandelBrot generates a colored fractal, according to user-defined color assignment functions as well as alpha values
+
+
+-- usage:
+-- renderMandelbrot (image_width, image_height) (center_real, center_imag) magnification filename
+-- try: 
+-- renderMandelbrot (250, 250) (0, 0) 0.3 "mandelbrot1.bmp"
+-- renderMandelbrot (250, 250) (0.001643721971153, -0.822467633298876) 100 "mandelbrot2.bmp"
+
+
 renderMandelbrot :: (Int, Int) -> (Double, Double) -> Double -> [Char] -> IO ()
 renderMandelbrot (w, h) (x, y) mag filename
   = do
@@ -47,7 +85,8 @@ renderMandelbrot (w, h) (x, y) mag filename
        saveBMP w h filePath btstr
     where
        renderPoint :: Int -> Int -> Color
-       renderPoint x2 y2 = color (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag))
+       renderPoint x2 y2 = colorFunc (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag)) bw_triple whiteAlpha_Triple
+
 
 cRenderMandelbrot :: (Int, Int) -> (Double, Double) -> AlphaTriple -> Double -> [Char] -> IO ()
 cRenderMandelbrot (w, h) (x, y) aT mag filename
@@ -58,7 +97,7 @@ cRenderMandelbrot (w, h) (x, y) aT mag filename
        saveBMP w h filePath btstr
     where
        renderPoint :: Int -> Int -> Color
-       renderPoint x2 y2 = funColor (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag)) aT
+       renderPoint x2 y2 = colorFunc (calculateMandelbrot (project (x2, y2) (w, h) (x, y) mag)) colorTriple aT
 
 
 fcRenderMandelbrot :: (Int, Int) -> (Double, Double) -> FunctionTriple -> AlphaTriple -> Double -> [Char] -> IO ()

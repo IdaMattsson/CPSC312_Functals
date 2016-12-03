@@ -3,6 +3,7 @@
 module Functals where
 
 import Complex
+
  
 -- max number of iterations
 max_it = 100
@@ -27,17 +28,10 @@ helper_computePoint z c it
  | otherwise = helper_computePoint (add (square z) c) c (it + 1)
 
 
--- renders Mandelbrot for testing - remember to scale window!
-renderMandelbrot w h = 
- [assignChar (computePoint 
- ((fromIntegral x - (fromIntegral w / 2)) / fromIntegral w * 2,
- (fromIntegral y - (fromIntegral h / 2)) / fromIntegral h * 4)) | x <- [0..w], y <- [0..h]]
-
-gimmeChar x
- | x < 0.5 = ' '
- | otherwise = '#'
 
 
+{-
+-- Simple Character assignment depending of the location of the point in the Mandelbrot set
 assignChar :: Double -> Char 
 assignChar mandelVal
  | mandelVal < 0.2 = ' '
@@ -45,3 +39,5 @@ assignChar mandelVal
  | mandelVal < 0.6 = '='
  | mandelVal < 0.8 = '@'
  | otherwise = '#'
+
+-}
