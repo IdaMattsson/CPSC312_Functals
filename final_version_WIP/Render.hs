@@ -1,3 +1,8 @@
+-- CPSC 312 Project 2 --
+-- Tim Straubinger and Ida Mattsson 
+-- Link to wiki: http://wiki.ubc.ca/Course:CPSC312-2016-Project2-Functals
+
+
 import Data.Word
 import Data.ByteString
 import Codec.BMP
